@@ -9,7 +9,7 @@ public class Util {
     private final String NAME = "root";
     private final String PASS = "12345678";
 
-   Connection connection = DriverManager.getConnection(URL, NAME, PASS);
+    private Connection connection = DriverManager.getConnection(URL, NAME, PASS);
 
     public Util() throws SQLException {
     }
