@@ -3,6 +3,7 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,12 +18,31 @@ public class UserDaoJDBCImpl implements UserDao {
 
     private ResultSet resultSet;
 
+//    private void exeMethod(String qwery) {
+//        try {
+//            Util util = new Util();
+//            Connection conn = util.getConnection();
+//            Statement statement = conn.createStatement();
+//            statement.execute(qwery);
+//            util.getConnection().close();
+//        } catch (SQLException e) {
+//            // ignored
+//        }
+//
+//    }
+
     private void exeMethod(String qwery) {
+
+        Util util = null;
         try {
-            Util util = new Util();
-            Statement statement = util.getConnection().createStatement();
+            util = new Util();
+        } catch (SQLException e) {
+//            ignored
+        }
+
+        try (Connection conn = util.getConnection();){
+            Statement statement = conn.createStatement();
             statement.execute(qwery);
-            util.getConnection().close();
         } catch (SQLException e) {
             // ignored
         }
@@ -58,9 +78,16 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
 
         List<User> listUser = new ArrayList<>();
+
+        Util util = null;
         try {
-            Util util = new Util();
-            Statement statement = util.getConnection().createStatement();
+            util = new Util();
+        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+        }
+
+        try (Connection conn = util.getConnection();){
+            Statement statement = conn.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Users");
 
             while (resultSet.next()) {
@@ -69,7 +96,6 @@ public class UserDaoJDBCImpl implements UserDao {
                         resultSet.getString(3),
                         resultSet.getByte(4)));
             }
-            util.getConnection().close();
             listUser.stream().forEach(System.out::println);
         } catch (SQLException e) {
             // ignored
