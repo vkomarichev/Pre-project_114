@@ -18,18 +18,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
     private ResultSet resultSet;
 
-//    private void exeMethod(String qwery) {
-//        try {
-//            Util util = new Util();
-//            Connection conn = util.getConnection();
-//            Statement statement = conn.createStatement();
-//            statement.execute(qwery);
-//            util.getConnection().close();
-//        } catch (SQLException e) {
-//            // ignored
-//        }
-//
-//    }
 
     private void exeMethod(String qwery) {
 
