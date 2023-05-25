@@ -24,14 +24,14 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             util = new Util();
         } catch (SQLException e) {
-//            ignored
+            e.printStackTrace();
         }
 
         try (Connection conn = util.getConnection();){
             Statement statement = conn.createStatement();
             statement.execute(qwery);
         } catch (SQLException e) {
-            // ignored
+            e.printStackTrace();
         }
 
     }
@@ -70,7 +70,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             util = new Util();
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         try (Connection conn = util.getConnection();){
@@ -85,7 +85,7 @@ public class UserDaoJDBCImpl implements UserDao {
             }
             listUser.stream().forEach(System.out::println);
         } catch (SQLException e) {
-            // ignored
+             e.printStackTrace();
         }
         return listUser;
     }
